@@ -1,0 +1,55 @@
+name: Build and Release uar
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    name: Build on ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build project
+        run: cargo build --release
+
+      - name: Package binary
+        shell: bash
+        run: |
+          mkdir dist
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
+            cp target/release/uar.exe dist/
+            cd dist
+            zip uar-windows.zip uar.exe
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
+            cp target/release/uar dist/
+            cd dist
+            tar czf uar-macos.tar.gz uar
+          else
+            cp target/release/uar dist/
+            cd dist
+            tar czf uar-linux.tar.gz uar
+          fi
+
+      - name: Upload binary to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/*.zip
+            dist/*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
