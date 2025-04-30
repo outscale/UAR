@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img alt="Rust" src="https://www.rust-lang.org/logos/rust-logo-512x512.png" width="120px">
+  <img alt="UAR" src="./uar-logo-512x512.png" width="128px">
 </p>
 
 ---
