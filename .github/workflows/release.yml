@@ -27,23 +27,31 @@ jobs:
       - name: Build project
         run: cargo build --release
 
-      - name: Package binary
+      - name: Package binary on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          mkdir dist
+          Copy-Item target/release/uar.exe dist/
+          Compress-Archive -Path dist/uar.exe -DestinationPath dist/uar-windows.zip
+
+      - name: Package binary on macOS
+        if: runner.os == 'macOS'
         shell: bash
         run: |
           mkdir dist
-          if [[ "${{ runner.os }}" == "Windows" ]]; then
-            cp target/release/uar.exe dist/
-            cd dist
-            zip uar-windows.zip uar.exe
-          elif [[ "${{ runner.os }}" == "macOS" ]]; then
-            cp target/release/uar dist/
-            cd dist
-            tar czf uar-macos.tar.gz uar
-          else
-            cp target/release/uar dist/
-            cd dist
-            tar czf uar-linux.tar.gz uar
-          fi
+          cp target/release/uar dist/
+          cd dist
+          tar czf uar-macos.tar.gz uar
+
+      - name: Package binary on Linux
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          mkdir dist
+          cp target/release/uar dist/
+          cd dist
+          tar czf uar-linux.tar.gz uar
 
       - name: Upload binary to release
         uses: softprops/action-gh-release@v1
