@@ -16,13 +16,26 @@
 
 ## 📄 Table of Contents
 
-- [Overview](#-overview)
-- [Requirements](#-requirements)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Report Output](#-report-output)
-- [Authorization Review](#-authorization-review)
-- [Contributing](#-contributing)
+- [UAR (User Access-Rights Review)](#uar-user-access-rights-review)
+  - [🌐 Links](#-links)
+  - [📄 Table of Contents](#-table-of-contents)
+  - [🧭 Overview](#-overview)
+  - [✅ Requirements](#-requirements)
+  - [⚙️ Install](#️-install)
+    - [from source](#from-source)
+      - [1. Install Rust](#1-install-rust)
+      - [2. Clone the repository](#2-clone-the-repository)
+      - [3. Update dependencies](#3-update-dependencies)
+      - [4. Build the project](#4-build-the-project)
+      - [5. Install locally](#5-install-locally)
+    - [from pre-compiled binaries](#from-pre-compiled-binaries)
+  - [🚀 Usage](#-usage)
+    - [Basic command](#basic-command)
+    - [Optional filters](#optional-filters)
+  - [📦 Report Output](#-report-output)
+  - [🔐 Authorization Review](#-authorization-review)
+    - [Access Control Rules to Remember](#access-control-rules-to-remember)
+  - [🤝 Contributing](#-contributing)
 
 ---
 
@@ -45,9 +58,11 @@ It performs read operations using the OUTSCALE API (oAPI) to:
 
 ---
 
-## ⚙️ Installation
+## ⚙️ Install
 
-### 1. Install Rust
+### from source
+
+#### 1. Install Rust
 
 If Rust is not already installed:
 
@@ -55,30 +70,34 @@ If Rust is not already installed:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-### 2. Clone the repository
+#### 2. Clone the repository
 
 ```bash
 git clone https://github.com/outscale/uar
 cd uar
 ```
 
-### 3. Update dependencies
+#### 3. Update dependencies
 
 ```bash
 cargo update
 ```
 
-### 4. Build the project
+#### 4. Build the project
 
 ```bash
 cargo build --release
 ```
 
-### 5. Install locally
+#### 5. Install locally
 
 ```bash
 cargo install --path .
 ```
+
+### from pre-compiled binaries
+
+Alternatively, you may find pre-compiled binaries to download on the [releases page](https://github.com/outscale/UAR/releases/).  
 
 ---
 
