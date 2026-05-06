@@ -2,7 +2,6 @@ use clap::Parser;
 use std::path::PathBuf;
 
 use outscale_api::apis::configuration::{AWSv4Key, Configuration};
-use secrecy::SecretString;
 
 #[derive(Parser, Debug, Clone)]
 pub struct Options {
@@ -35,7 +34,7 @@ impl From<Options> for Configuration {
         config.base_path = format!("https://api.{}.outscale.com/api/v1", &options.osc_region);
         config.aws_v4_key = Some(AWSv4Key {
             access_key: options.osc_access_key,
-            secret_key: SecretString::new(options.osc_secret_key),
+            secret_key: options.osc_secret_key.into(),
             region: options.osc_region,
             service: "oapi".to_string(),
         });
