@@ -13,7 +13,7 @@ publish = false #We don't publish in public crates.io
 [dependencies]
 clap = { version = "4.5.16", features = ["derive", "env"] }
 csv = "1.3.0"
-itertools = "0.13.0"
+itertools = "0.14.0"
 outscale_api = "1.10.0"
 phf = { version = "0.11.2", features = ["macros"] }
 regex = "1.10.6"
